@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "fhdaisy"
+  site-url: "https://AnswerDotAI.github.io/fhdaisy"
+  description: "A FastHTML wrapper for Daisy-UI"
+  repo-branch: main
+  repo-url: "https://github.com/AnswerDotAI/fhdaisy"
