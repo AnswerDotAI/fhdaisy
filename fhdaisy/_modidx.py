@@ -2,7 +2,17 @@
 
 d = { 'settings': { 'branch': 'main',
                 'doc_baseurl': '/fhdaisy',
-                'doc_host': 'https://AnswerDotAI.github.io',
-                'git_url': 'https://github.com/AnswerDotAI/fhdaisy',
+                'doc_host': 'https://fastai.github.io',
+                'git_url': 'https://github.com/fastai/fhdaisy',
                 'lib_path': 'fhdaisy'},
-  'syms': {'fhdaisy.core': {'fhdaisy.core.foo': ('core.html#foo', 'fhdaisy/core.py')}}}
+  'syms': { 'fhdaisy.comp': {},
+            'fhdaisy.core': { 'fhdaisy.core.hyphens2camel': ('core.html#hyphens2camel', 'fhdaisy/core.py'),
+                              'fhdaisy.core.mk_compfn': ('core.html#mk_compfn', 'fhdaisy/core.py'),
+                              'fhdaisy.core.mk_previewer': ('core.html#mk_previewer', 'fhdaisy/core.py')},
+            'fhdaisy.xtras': { 'fhdaisy.xtras.ChatPair': ('xtras.html#chatpair', 'fhdaisy/xtras.py'),
+                               'fhdaisy.xtras.ChatTurn': ('xtras.html#chatturn', 'fhdaisy/xtras.py'),
+                               'fhdaisy.xtras.mk_accordion': ('xtras.html#mk_accordion', 'fhdaisy/xtras.py'),
+                               'fhdaisy.xtras.mk_accordion_item': ('xtras.html#mk_accordion_item', 'fhdaisy/xtras.py'),
+                               'fhdaisy.xtras.mk_dropdown': ('xtras.html#mk_dropdown', 'fhdaisy/xtras.py'),
+                               'fhdaisy.xtras.mk_fab': ('xtras.html#mk_fab', 'fhdaisy/xtras.py'),
+                               'fhdaisy.xtras.mk_swap': ('xtras.html#mk_swap', 'fhdaisy/xtras.py')}}}
