@@ -6,42 +6,11 @@
 This file will become your README and also the index of your
 documentation.
 
-## Developer Guide
-
-If you are new to using `nbdev` here are some useful pointers to get you
-started.
-
-### Install fhdaisy in Development mode
-
-``` sh
-# make sure fhdaisy package is installed in development mode
-$ pip install -e .
-
-# make changes under nbs/ directory
-# ...
-
-# compile to have changes apply to fhdaisy
-$ nbdev_prepare
-```
-
 ## Usage
 
 ### Installation
 
-Install latest from the GitHub
-[repository](https://github.com/AnswerDotAI/fhdaisy):
-
-``` sh
-$ pip install git+https://github.com/AnswerDotAI/fhdaisy.git
-```
-
-or from [conda](https://anaconda.org/AnswerDotAI/fhdaisy)
-
-``` sh
-$ conda install -c AnswerDotAI fhdaisy
-```
-
-or from [pypi](https://pypi.org/project/fhdaisy/)
+Install latest from [pypi](https://pypi.org/project/fhdaisy/)
 
 ``` sh
 $ pip install fhdaisy
@@ -49,19 +18,265 @@ $ pip install fhdaisy
 
 ### Documentation
 
-Documentation can be found hosted on this GitHub
-[repository](https://github.com/AnswerDotAI/fhdaisy)’s
-[pages](https://AnswerDotAI.github.io/fhdaisy/). Additionally you can
-find package manager specific guidelines on
-[conda](https://anaconda.org/AnswerDotAI/fhdaisy) and
-[pypi](https://pypi.org/project/fhdaisy/) respectively.
-
-## How to use
-
-Fill me in please! Don’t forget code examples:
-
 ``` python
-1+1
+from fasthtml.common import *
+from fasthtml.jupyter import *
+from fhdaisy import *
 ```
 
-    2
+### Daisy basics
+
+DaisyUI creates buttons by using a `btn` class, along with other special
+classes prefixed by `btn-`, eg:
+
+``` python
+c = Button('Hey there', cls='btn btn-primary')
+print(c)
+```
+
+    <button class="btn btn-primary">Hey there</button>
+
+For creating accurate previews in Jupyter, Solveit, and similar
+environments, we provide
+[`mk_previewer()`](https://fastai.github.io/fhdaisy/core.html#mk_previewer):
+
+``` python
+p = mk_previewer()
+```
+
+We can now use this to preview our button:
+
+``` python
+p(c)
+```
+
+### fhdaisy basics
+
+For the equivalent in fhdaisy, use the title-case class as a component
+directly. Then you don’t need to repeat it in the `cls` section.
+Anything prefixed with, e.g, `btn-`, can also skip the `btn` part. For
+instance:
+
+``` python
+c = Btn('Hey there', cls='-primary')
+print(c)
+```
+
+    <button class="btn btn-primary ">Hey there</button>
+
+This renders identically to the previous manual version.
+
+``` python
+p(c)
+```
+
+Let’s use another example to look deeper into how fhdaisy’s API design
+perfectly mirrors DaisyUI’s class structure.
+
+DaisyUI’s form inputs use the `input` CSS class. Just like with buttons,
+DaisyUI modifies input elements through special classes. For example: -
+`input` - base input styling - `input-bordered` - adds a border -
+`input-primary` - uses primary color theme
+
+Here’s how you’d write a traditional DaisyUI input:
+
+``` python
+p( Input(placeholder='Enter name', cls='input input-bordered') )
+```
+
+With fhdaisy, the pattern is consistent: use the title-case version of
+the DaisyUI class name as your component. So `input` becomes `Input`;
+fhdaisy automatically adds the base `input` class when you use the
+`Input` component. Any modifiers like `input-bordered` can be shortened
+to just `-bordered` in the `cls` parameter.
+
+``` python
+p( Input(placeholder='Enter name', cls='-bordered') )
+```
+
+``` python
+print( Alert('Success! Your changes have been saved', cls='-success -soft') )
+```
+
+    <div class="alert alert-success alert-soft ">Success! Your changes have been saved</div>
+
+DaisyUI creates alerts using the `alert` class on a `<div>` element.
+Here’s the traditional DaisyUI approach:
+
+``` python
+p( Div('This is an important message!', cls='alert alert-info') )
+```
+
+Notice that DaisyUI uses a `<div>` tag here, not an `<alert>` tag (which
+doesn’t exist in HTML). The styling comes entirely from the `alert`
+class.
+
+With fhdaisy, you use the title-case version of the CSS class name as
+your component - so `alert` becomes `Alert`. It doesn’t matter that the
+underlying HTML tag is a `div`:
+
+``` python
+p( Alert('This is an important message!', cls='-info') )
+```
+
+### Multi-part components
+
+Some DaisyUI components are more complex and contain multiple structural
+parts. For instance, `card`s are composed of several nested elements
+that work together:
+
+- A `<div>` with class `card` as the container
+- A `<figure>` element for images (optional)
+- A `<div>` with class `card-body` for the main content
+- Inside the card body, you might have:
+  - A `<h2>` with class `card-title`
+  - Content paragraphs
+  - A `<div>` with class `card-actions` for buttons
+
+With fhdaisy, each part of the component follows the same naming pattern
+we’ve already seen. The base `card` class becomes `Card`, and each part
+like `card-body`, `card-title`, and `card-actions` becomes `CardBody`,
+`CardTitle`, and `CardActions` respectively:
+
+``` python
+p ( Card(
+        Figure(Img(src='https://picsum.photos/seed/fd/400/225')),
+        CardBody(
+            CardTitle('Card title'),
+            P('This is a sample card with some content'),
+            CardActions(cls='justify-end')( Btn('Buy Now', cls='-primary') )
+        ) , cls='w-96 bg-base-100 shadow-sm'
+) )
+```
+
+### Xtras
+
+``` python
+from fhdaisy.xtras import *
+import fasthtml.components as fh
+```
+
+Some components have a very rigid structure, for instance an item in an
+accordian alway has these pieces:
+
+``` python
+p ( Collapse(
+        fh.Input(type='radio', name='acc1', checked="checked"),
+        CollapseTitle('Click to expand', cls='font-semibold'),
+        CollapseContent('This is the hidden content', cls='text-sm'),
+        cls='-arrow border border-base-300'
+) )
+```
+
+`fhdaisy.xtras` provides a number of functions to make these more
+concise. For instance for the above:
+
+``` python
+p (mk_accordion_item('Click to expand', 'This is the hidden content',
+    name='acc1', checked=True, cls='-arrow border border-base-300', titlecls='font-semibold'))
+```
+
+Accordians contain a number of items, again in a specific format.
+There’s a function to simplify this too (all these “xtras” functions
+have the prefix `mk_`, to distinguish them from the components and parts
+that exactly map to DaisyUI’s standard syntax):
+
+``` python
+accitems = [
+    ('How do I create an account?', 'Click the "Sign Up" button in the top right corner.'),
+    ('I forgot my password', 'Click on "Forgot Password" on the login page.'),
+    ('How do I update my profile?', 'Go to "My Account" settings and select "Edit Profile".')
+]
+```
+
+``` python
+p( mk_accordion(*accitems,
+        titlecls='font-semibold', contentcls='text-sm',
+        itemcls='-arrow border border-base-300',
+        cls='-vertical min-w-md') )
+```
+
+### Custom functions
+
+You can create custom helper functions for components that have
+repetitive patterns that `fhdaisy.xtras` hasn’t yet created a wrapper
+for. You should follow the `mk_` prefix convention to distinguish them
+from standard components.
+
+The rating component is a good example. A DaisyUI rating consists of
+multiple masked input elements, where each represents one star (or other
+shape). The traditional approach requires creating each mask input
+individually:
+
+``` python
+p( Rating(
+    Mask(cls='-star-2 bg-orange-400', checked=True, name='rating-demo'),
+    Mask(cls='-star-2 bg-orange-400', checked=True, name='rating-demo'),
+    Mask(cls='-star-2 bg-orange-400', checked=True, name='rating-demo'),
+    Mask(cls='-star-2 bg-orange-400', checked=False, name='rating-demo'),
+    Mask(cls='-star-2 bg-orange-400', checked=False, name='rating-demo'),
+    cls='-sm'
+) )
+```
+
+This is repetitive and error-prone. You can create your own `mk_rating`
+function to simplify this by generating all the mask inputs
+automatically:
+
+``` python
+def mk_rating(n, checked, nm=None, cls='', itemcls=''):
+    return Rating(*[Mask(cls=itemcls, checked=(i<checked), name=nm) for i in range(n)], cls=cls)
+```
+
+Now you can create the same 5-star rating with 3 stars selected much
+more concisely:
+
+``` python
+p( mk_rating(5, 3, nm='rating-demo', cls='-sm', itemcls='-star-2 bg-orange-400') )
+```
+
+This pattern can be applied to any component with repetitive
+structures - identify the pattern, create a `mk_` function that
+generates the structure, and expose the key parameters that vary.
+
+## Full example
+
+Here’s an example showing a number of components being used together.
+This example was auto-generated using Sonnet-3.5 running inside Solveit:
+
+``` python
+c = Div(
+    Card(
+        Figure(Img(src="https://picsum.photos/seed/42/400/250")),
+        CardBody(
+            H2("Mountain Adventure", cls="card-title"),
+            Flex(
+                Badge("New", cls="-primary"),
+                Badge("Featured", cls="-secondary -outline"),
+                Badge("Travel", cls="-accent -soft"),
+                cls="gap-2 mb-3"),
+            P("Discover breathtaking mountain trails and scenic vistas on this unforgettable journey."),
+            Flex(
+                Avatar(
+                    Div(Img(src="https://picsum.photos/80/80", cls="rounded-full"), cls="w-10"),
+                    cls="-online"),
+                Div(
+                    Div("Alex Chen", cls="font-semibold"),
+                    Div("2 hours ago", cls="text-sm opacity-50")),
+                cls="items-center gap-3 my-4"),
+            mk_rating(5, 3, nm='rating-demo', cls='-sm', itemcls='-star-2 bg-orange-400'),
+            Progress(value="75", max="100", cls="-primary -sm mt-3"),
+            CardActions(
+                Btn("Learn More", cls="-primary"),
+                Btn("Bookmark"),
+                cls="justify-end mt-4")
+        ),
+        cls="w-96 bg-base-100 shadow-xl"),
+    cls="min-h-screen bg-base-200 flex items-center justify-center p-8"
+)
+```
+
+``` python
+p(c)
+```
+
