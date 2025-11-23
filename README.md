@@ -25,7 +25,7 @@ $ pip install fhdaisy
 
 ### Docs
 
-To learn to use this library and see examples, please refer to the [documentation](AnswerDotAI.github.io/fhdaisy).
+To learn to use this library and see examples, please refer to the [documentation](https://AnswerDotAI.github.io/fhdaisy).
 
 A brief overview of the project is available in this readme, but it is not a replacement for the docs.
 
