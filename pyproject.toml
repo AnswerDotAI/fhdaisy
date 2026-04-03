@@ -28,4 +28,5 @@ version = {attr = "fhdaisy.__version__"}
 include = ["fhdaisy"]
 
 [tool.nbdev]
+allowed_cell_metadata_keys = ["solveit_ai"]
 custom_sidebar = false
