@@ -3,6 +3,7 @@ from fhdaisy.core import *
 # Actions
 
 mk_compfn('btn', 'Button')
+mk_compfn('btn', 'A', 'LinkButton')
 
 mk_compfn('dropdown', 'Details')
 mk_compfn('dropdown-content', 'Ul')
