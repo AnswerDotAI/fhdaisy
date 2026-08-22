@@ -30,6 +30,7 @@ from fasthtml.common import *
 from fasthtml.jupyter import *
 from fhdaisy import *
 ```
+**Important note**: Make sure you import `fhdaisy` after `fasthtml`. Otherwise `fasthtml` will overwrite the components and `Link()` will render to `<link></link>` in HTML.
 
 Let’s look at a specific example of a DaisyUI component - the `btn`.
 
