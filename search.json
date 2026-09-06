@@ -1,0 +1,122 @@
+[
+  {
+    "objectID": "core.html",
+    "href": "core.html",
+    "title": "fhdaisy.core",
+    "section": "",
+    "text": "from fastcore.test import *",
+    "crumbs": [
+      "fhdaisy.core"
+    ]
+  },
+  {
+    "objectID": "core.html#the-basics",
+    "href": "core.html#the-basics",
+    "title": "fhdaisy.core",
+    "section": "The basics",
+    "text": "The basics\n\n\nsource\n\nmk_previewer\ndef mk_previewer(\n    app:NoneType=None, cls:str='max-w-lg'\n):\nCall self as a function.\n\n\n\np = mk_previewer()\n\n\nc = Button('Hey there', cls='btn')\np(c)\n\n \n\n\n\nprint(c)\n\n&lt;button class=\"btn\"&gt;Hey there&lt;/button&gt;",
+    "crumbs": [
+      "fhdaisy.core"
+    ]
+  },
+  {
+    "objectID": "core.html#creating-simple-components",
+    "href": "core.html#creating-simple-components",
+    "title": "fhdaisy.core",
+    "section": "Creating simple components",
+    "text": "Creating simple components\n\n\nsource\n\nhyphens2camel\ndef hyphens2camel(\n    x\n):\nCall self as a function.\n\n\nTailwind utility classes can start with - (like -mt-5 or -right-5). We need to distinguish these from our shorthand where we prepend the class name to user provided values that start with - (e.g. Tooltip('-left') becomes tooltip-left)\n\nfor o in ('-mt-5', '-right-5'): test_eq(_is_neg_twu(o), True)\nfor o in ('-right', 'mt-5', 'right-5'): test_eq(_is_neg_twu(o), False)\n\n\n\nsource\n\nmk_compfn\ndef mk_compfn(\n    compcls, tag:NoneType=None, name:NoneType=None, xcls:str='', **compkw\n):\nCall self as a function.\n\n\n\nmk_compfn('btn', 'Button')\n\n\nc = Btn('Hey there', cls='-primary p-5 text-2xl rounded-full')\nprint(c)\n\n&lt;button class=\"btn btn-primary p-5 text-2xl rounded-full \"&gt;Hey there&lt;/button&gt;\n\n\n\np(c)\n\n \n\n\nDemonstrating that negative utility classes are handled correctly:\n\nmk_compfn('tooltip', 'Div')\n\n\nc = Tooltip('Main text is offset to the right', cls='-right-50 -primary -left', data_tip='Tooltip appears to the left')\nprint(c)\n\n&lt;div data-tip=\"Tooltip appears to the left\" class=\"tooltip -right-50 tooltip-primary tooltip-left \"&gt;Main text is offset to the right&lt;/div&gt;\n\n\n\np(c)",
+    "crumbs": [
+      "fhdaisy.core"
+    ]
+  },
+  {
+    "objectID": "xtras.html",
+    "href": "xtras.html",
+    "title": "fhdaisy.xtras",
+    "section": "",
+    "text": "p = mk_previewer()",
+    "crumbs": [
+      "fhdaisy.xtras"
+    ]
+  },
+  {
+    "objectID": "xtras.html#actions",
+    "href": "xtras.html#actions",
+    "title": "fhdaisy.xtras",
+    "section": "Actions",
+    "text": "Actions\n\nDropdown\n\nfh.Summary('a', cls='')\n\n&lt;summary&gt;a&lt;/summary&gt;\n\n\n\n\nsource\n\nmk_dropdown\ndef mk_dropdown(\n    summary, items, summcls:str='', cls:str='', **kw\n):\nCall self as a function.\n\n\n\nc = mk_dropdown('Click me',\n    [Li(A('Item 1')), Li(A('Item 2'))],\n    summcls=\"btn m-1\",\n    cls='bg-base-100 rounded-box w-52 p-2 shadow')\n\n\n\nsource\n\nmk_dropdown\ndef mk_dropdown(\n    summary, # Text for the summary/button\n    items, # List of items to display in dropdown\n    summcls:str='', # Class for the summary element\n    cls:str='', # Class for the dropdown content\n    **kw\n):\nA dropdown menu with summary and content\n\n\n\np(c, height=150)\n\n \n\n\n\n\nFAB\n\n\nsource\n\nmk_fab\ndef mk_fab(\n    txt, main, items, maincls:str='-success', btncls:str='-lg -circle', cls:str='', **kw\n):\nCall self as a function.\n\n\n\nc = mk_fab('➕', 'M', ['A', 'B', 'C'], cls='-flower')\n\n\np(c, height=200)",
+    "crumbs": [
+      "fhdaisy.xtras"
+    ]
+  },
+  {
+    "objectID": "xtras.html#swap",
+    "href": "xtras.html#swap",
+    "title": "fhdaisy.xtras",
+    "section": "Swap",
+    "text": "Swap\n\n\nsource\n\nmk_swap\ndef mk_swap(\n    on, off, cls:str='', **kw\n):\nCall self as a function.\n\n\n\nc = mk_swap('ON', 'OFF')\nprint(c)\n\n&lt;label class=\"swap  \"&gt;&lt;input type=\"checkbox\"&gt;&lt;div class=\"swap-on  \"&gt;ON&lt;/div&gt;&lt;div class=\"swap-off  \"&gt;OFF&lt;/div&gt;&lt;/label&gt;\n\n\n\np(c)\n\n \n\n\n\nc = mk_swap('😀', '😪', cls='-rotate text-9xl')\np(c)",
+    "crumbs": [
+      "fhdaisy.xtras"
+    ]
+  },
+  {
+    "objectID": "xtras.html#data-display",
+    "href": "xtras.html#data-display",
+    "title": "fhdaisy.xtras",
+    "section": "Data display",
+    "text": "Data display\n\nAccordian\n\n\nsource\n\nmk_accordion_item\ndef mk_accordion_item(\n    title, content, name:str='accordion', checked:bool=False, cls:str='', titlecls:str='', contentcls:str='', **kw\n):\nCall self as a function.\n\n\n\naccitems = [\n    ('How do I create an account?', 'Click the \"Sign Up\" button in the top right corner.'),\n    ('I forgot my password', 'Click on \"Forgot Password\" on the login page.'),\n    ('How do I update my profile?', 'Go to \"My Account\" settings and select \"Edit Profile\".')\n]\n\n\nais = [\n    mk_accordion_item(*o, name='acc1', checked=i==0, cls='-arrow border border-base-300', titlecls='font-semibold')\n    for i,o in enumerate(accitems)\n]\n\n\np( Join(*ais, cls='-vertical min-w-md') )\n\n \n\n\n\n\nsource\n\nmk_accordion\ndef mk_accordion(\n    *items, name:NoneType=None, cls:str='', itemcls:str='', titlecls:str='', contentcls:str='', itemkw:NoneType=None,\n    **kw\n):\nCall self as a function.\n\n\n\nc = mk_accordion(*accitems,\n        titlecls='font-semibold', contentcls='text-sm',\n        itemcls='-arrow border border-base-300',\n        cls='-vertical min-w-md')\n\n\np(c)",
+    "crumbs": [
+      "fhdaisy.xtras"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "fhdaisy",
+    "section": "",
+    "text": "fhdaisy provides Python components for using DaisyUI in FastHTML applications. For example, Btn('Click me', cls='-primary') creates &lt;button class=\"btn btn-primary\"&gt;Click me&lt;/button&gt;. Component names follow DaisyUI’s CSS classes: card becomes Card, and alert becomes Alert. Modifiers can omit the component prefix, as in -primary for btn-primary.\nfhdaisy.xtras provides helpers for repeated structures such as accordions and forms. You can also write your own helpers.",
+    "crumbs": [
+      "fhdaisy"
+    ]
+  },
+  {
+    "objectID": "index.html#usage",
+    "href": "index.html#usage",
+    "title": "fhdaisy",
+    "section": "Usage",
+    "text": "Usage\n\nInstallation\nInstall latest from pypi\n$ pip install fhdaisy",
+    "crumbs": [
+      "fhdaisy"
+    ]
+  },
+  {
+    "objectID": "index.html#documentation",
+    "href": "index.html#documentation",
+    "title": "fhdaisy",
+    "section": "Documentation",
+    "text": "Documentation\n\nDaisyUI\nDaisyUI adds component classes to Tailwind CSS. Tailwind utilities such as bg-blue-500 and p-4 each control a styling property. DaisyUI classes such as btn, card, and modal define styles for whole components. For example, class=\"btn btn-primary\" styles a button without listing its individual Tailwind utilities.\nDaisyUI provides CSS-based components with themes, responsive design, and accessibility features. It does not require a JavaScript framework. FastHTML can use these components in server-rendered HTML.\n\n\nDaisy basics\n\nfrom fasthtml.common import *\nfrom fasthtml.jupyter import *\nfrom fhdaisy import *\n\nDaisyUI buttons use the btn class. Additional classes prefixed with btn- modify their appearance:\n\nc = Button('Hey there', cls='btn btn-primary')\nprint(c)\n\n&lt;button class=\"btn btn-primary\"&gt;Hey there&lt;/button&gt;\n\n\nUse mk_previewer() to preview components in Jupyter, Solveit, and similar environments:\n\np = mk_previewer()\n\nPass the button to the previewer:\n\np(c)\n\n \n\n\n\n\nfhdaisy basics\nfhdaisy components create HTML elements with the corresponding DaisyUI base class. Btn creates a &lt;button&gt; with class btn. The HTML tag follows DaisyUI’s documentation. For example, Alert creates a &lt;div&gt; and Input creates an &lt;input&gt;.\nIn the cls parameter, a leading - expands to the component’s class prefix. For Btn, -primary, -outline, and -sm expand to btn-primary, btn-outline, and btn-sm.\nThe previous button can therefore be written as:\n\nc = Btn('Hey there', cls='-primary')\nprint(c)\n\n&lt;button class=\"btn btn-primary \"&gt;Hey there&lt;/button&gt;\n\n\nThis renders identically to the previous manual version.\n\np(c)\n\n \n\n\nDaisyUI input classes follow the same pattern:\n\ninput supplies the base input styling.\ninput-bordered adds a border.\ninput-primary uses the primary colour theme.\n\nUsing the full class names:\n\np( Input(placeholder='Enter name', cls='input input-bordered') )\n\n \n\n\nInput supplies the base input class. Use -bordered as shorthand for input-bordered:\n\np( Input(placeholder='Enter name', cls='-bordered') )\n\n \n\n\n\nprint( Alert('Success! Your changes have been saved', cls='-success -soft') )\n\n&lt;div class=\"alert alert-success alert-soft \"&gt;Success! Your changes have been saved&lt;/div&gt;\n\n\nDaisyUI creates alerts using the alert class on a &lt;div&gt; element. Here’s the traditional DaisyUI approach:\n\np( Div('This is an important message!', cls='alert alert-info') )\n\n \n\n\nAlert also creates a &lt;div&gt;. Its name comes from the CSS class, rather than an HTML tag. HTML has no &lt;alert&gt; element:\n\np( Alert('This is an important message!', cls='-info') )\n\n \n\n\n\n\nMulti-part components\nA DaisyUI card contains nested elements:\n\nA &lt;div&gt; with class card as the container\nAn optional &lt;figure&gt; for images\nA &lt;div&gt; with class card-body for the main content\nWithin the card body:\n\nAn optional &lt;h2&gt; with class card-title\nContent paragraphs\nA &lt;div&gt; with class card-actions for buttons\n\n\nfhdaisy provides Card for the container. The part names card-body, card-title, and card-actions correspond to CardBody, CardTitle, and CardActions:\n\np ( Card(\n        Figure(Img(src='https://picsum.photos/seed/fd/400/225')),\n        CardBody(\n            CardTitle('Card title'),\n            P('This is a sample card with some content'),\n            CardActions(cls='justify-end')( Btn('Buy Now', cls='-primary') )\n        ) , cls='w-96 bg-base-100 shadow-sm'\n) )\n\n \n\n\n\n\nXtras\n\nfrom fhdaisy.xtras import *\nimport fasthtml.components as fh\n\nAn accordion item contains a radio input, a title, and content inside a Collapse component:\n\np ( Collapse(\n        fh.Input(type='radio', name='acc1', checked=\"checked\"),\n        CollapseTitle('Click to expand', cls='font-semibold'),\n        CollapseContent('This is the hidden content', cls='text-sm'),\n        cls='-arrow border border-base-300'\n) )\n\n \n\n\nfhdaisy.xtras provides mk_accordion_item to construct those parts:\n\np (mk_accordion_item('Click to expand', 'This is the hidden content',\n    name='acc1', checked=True, cls='-arrow border border-base-300', titlecls='font-semibold'))\n\n \n\n\nmk_accordion builds an accordion from a sequence of items. All xtras helpers use the mk_ prefix to distinguish them from components that map directly to DaisyUI classes:\n\naccitems = [\n    ('How do I create an account?', 'Click the \"Sign Up\" button in the top right corner.'),\n    ('I forgot my password', 'Click on \"Forgot Password\" on the login page.'),\n    ('How do I update my profile?', 'Go to \"My Account\" settings and select \"Edit Profile\".')\n]\n\n\np( mk_accordion(*accitems,\n        titlecls='font-semibold', contentcls='text-sm',\n        itemcls='-arrow border border-base-300',\n        cls='-vertical min-w-md') )\n\n \n\n\n\n\nCustom functions\nWrite custom helpers for repeated structures that fhdaisy.xtras does not yet cover. Use the mk_ prefix for these helpers too.\nA DaisyUI rating consists of masked input elements, one for each star or other shape. Written individually, the inputs look like this:\np( Rating(\n    Mask(cls='-star-2 bg-orange-400', checked=True, name='rating-demo'),\n    Mask(cls='-star-2 bg-orange-400', checked=True, name='rating-demo'),\n    Mask(cls='-star-2 bg-orange-400', checked=True, name='rating-demo'),\n    Mask(cls='-star-2 bg-orange-400', checked=False, name='rating-demo'),\n    Mask(cls='-star-2 bg-orange-400', checked=False, name='rating-demo'),\n    cls='-sm'\n) )\nA mk_rating helper can generate the inputs from the number of stars and the selected count:\n\ndef mk_rating(n, checked, nm=None, cls='', itemcls=''):\n    return Rating(*[Mask(cls=itemcls, checked=(i&lt;checked), name=nm) for i in range(n)], cls=cls)\n\nThis creates the same five-star rating with three stars selected:\n\np( mk_rating(5, 3, nm='rating-demo', cls='-sm', itemcls='-star-2 bg-orange-400') )\n\n \n\n\nFor other repeated structures, put the component construction in a mk_ function. Make the parts that vary between uses its parameters.",
+    "crumbs": [
+      "fhdaisy"
+    ]
+  },
+  {
+    "objectID": "index.html#full-example",
+    "href": "index.html#full-example",
+    "title": "fhdaisy",
+    "section": "Full example",
+    "text": "Full example\nThis example combines several components. Sonnet-3.5 generated it in Solveit:\n\nc = Div(\n    Card(\n        Figure(Img(src=\"https://picsum.photos/seed/42/400/250\")),\n        CardBody(\n            H2(\"Mountain Adventure\", cls=\"card-title\"),\n            Flex(\n                Badge(\"New\", cls=\"-primary\"),\n                Badge(\"Featured\", cls=\"-secondary -outline\"),\n                Badge(\"Travel\", cls=\"-accent -soft\"),\n                cls=\"gap-2 mb-3\"),\n            P(\"Discover breathtaking mountain trails and scenic vistas on this unforgettable journey.\"),\n            Flex(\n                Avatar(\n                    Div(Img(src=\"https://picsum.photos/80/80\", cls=\"rounded-full\"), cls=\"w-10\"),\n                    cls=\"-online\"),\n                Div(\n                    Div(\"Alex Chen\", cls=\"font-semibold\"),\n                    Div(\"2 hours ago\", cls=\"text-sm opacity-50\")),\n                cls=\"items-center gap-3 my-4\"),\n            mk_rating(5, 3, nm='rating-demo', cls='-sm', itemcls='-star-2 bg-orange-400'),\n            Progress(value=\"75\", max=\"100\", cls=\"-primary -sm mt-3\"),\n            CardActions(\n                Btn(\"Learn More\", cls=\"-primary\"),\n                Btn(\"Bookmark\"),\n                cls=\"justify-end mt-4\")\n        ),\n        cls=\"w-96 bg-base-100 shadow-xl\"),\n    cls=\"min-h-screen bg-base-200 flex items-center justify-center p-8\"\n)\n\n\np(c)",
+    "crumbs": [
+      "fhdaisy"
+    ]
+  },
+  {
+    "objectID": "index.html#next-steps",
+    "href": "index.html#next-steps",
+    "title": "fhdaisy",
+    "section": "Next steps",
+    "text": "Next steps\nTry components interactively in Jupyter or Solveit. Create a previewer with mk_previewer() and compare different combinations and modifiers. Start with Btn or Alert and modifiers such as -primary, -outline, and -lg. Then try multi-part components such as cards and modals.\nThe markdown version of this documentation makes useful context for an LLM. Click “commonmark” on the documentation page to obtain it. Provide it when asking an assistant to prototype an interface or convert existing HTML designs to fhdaisy.\nSee the DaisyUI component documentation for all components and modifiers. See the FastHTML documentation for building complete applications.\nContributions of useful mk_ helpers are welcome in the fhdaisy repository. Use that prefix for helpers that construct repeated component structures.",
+    "crumbs": [
+      "fhdaisy"
+    ]
+  }
+]
